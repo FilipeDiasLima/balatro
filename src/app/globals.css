@@ -15,7 +15,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #314045;
     --foreground: #ededed;
     --radius: 0.65rem;
   }
@@ -24,6 +24,16 @@
     box-shadow: 0px 8px 3px 0px rgba(25, 25, 25, 0.93);
     -webkit-box-shadow: 0px 8px 3px 0px rgba(25, 25, 25, 0.93);
     -moz-box-shadow: 0px 8px 3px 0px rgba(25, 25, 25, 0.93);
+  }
+
+  .shadow-main-menu-light {
+    box-shadow: 0px 8px 2px 0px rgba(119, 126, 137, 0.93);
+    -webkit-box-shadow: 0px 8px 2px 0px rgba(119, 126, 137, 0.93);
+    -moz-box-shadow: 0px 8px 2px 0px rgba(119, 126, 137, 0.93);
+  }
+
+  .input-container:focus-within {
+    background: #003367;
   }
 }
 

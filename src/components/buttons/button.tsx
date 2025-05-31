@@ -10,10 +10,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         "main-menu":
-          "bg-blue-main border-4 border-blue-main  hover:border-blue-lightest rounded-xl shadow-main-menu",
+          "bg-blue-main border-4 border-blue-main hover:border-blue-lightest rounded-xl shadow-main-menu transition-transform duration-100 active:translate-y-1",
+        secondary:
+          "bg-yellow-secondary border-4 border-yellow-secondary hover:border-blue-lightest rounded-xl shadow-main-menu transition-transform duration-100 active:translate-y-1",
+        setting:
+          "bg-red-main border-4 border-red-main hover:border-blue-lightest rounded-xl shadow-main-menu transition-transform duration-100 active:translate-y-1",
       },
       size: {
-        default: "h-20 px-4 py-2",
+        default: "h-20 px-4 py-2 text-2xl",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
@@ -45,6 +49,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
-Button.displayName = "Button";
 
 export { Button, buttonVariants };

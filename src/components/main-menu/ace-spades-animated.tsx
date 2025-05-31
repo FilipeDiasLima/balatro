@@ -16,7 +16,7 @@ export function AceSpadesAnimated() {
   });
 
   return (
-    <motion.div ref={ref} className="z-[2]">
+    <motion.div ref={ref}>
       <Image
         src="/images/ace-spades.webp"
         width={160}

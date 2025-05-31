@@ -15,6 +15,7 @@ const config = {
     },
     extend: {
       colors: {
+        background: "#314045",
         link: {
           DEFAULT: "#679DFA",
         },
@@ -24,6 +25,7 @@ const config = {
           main: "#009CFD",
           darker: "#008BE3",
           darkest: "#0082D5",
+          deep: "#003367",
         },
         green: {
           main: "#56A786",
