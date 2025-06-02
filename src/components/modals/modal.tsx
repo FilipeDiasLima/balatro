@@ -58,7 +58,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                 },
               }}
               className={cn(
-                "bg-background shadow-main-menu-light border-gray-light fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border-4 p-4 shadow-lg duration-200 sm:rounded-lg lg:rounded-2xl",
+                "bg-background border-border shadow-light-menu fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border-4 p-4 pt-6 shadow-lg duration-200 sm:rounded-lg lg:rounded-2xl",
                 className,
               )}
             >

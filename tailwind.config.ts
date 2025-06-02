@@ -15,29 +15,39 @@ const config = {
     },
     extend: {
       colors: {
+        border: {
+          DEFAULT: "var(--border)",
+        },
         background: "#314045",
         link: {
           DEFAULT: "#679DFA",
         },
         blue: {
           lightest: "#E5F1FF",
-          light: "#81CEFD",
+          light: "#00a7ca",
+          light1: "#00657c",
           main: "#009CFD",
-          darker: "#008BE3",
-          darkest: "#0082D5",
+          spectral: "#2e76fd",
+          darker: "#0057a1",
+          "spectral-darker": "#14449e",
           deep: "#003367",
         },
         green: {
           main: "#56A786",
           secondary: "#3F9270",
+          darker: "#215f46",
         },
         deepgreen: {
           main: "#235955",
+          darkest: "#1e2b2d",
         },
         gray: {
-          light: "#DCDCDC",
+          lightnest: "#DCDCDC",
+          light0: "#a3acb9",
+          light: "#708386",
           main: "#4F6367",
-          darker: "#314045",
+          darker: "#404c4e",
+          darkest: "#35484d",
         },
         bluegray: {
           main: "#59657F",
@@ -45,13 +55,18 @@ const config = {
         yellow: {
           main: "#E3AF3E",
           secondary: "#FDA200",
+          darker: "#a05b00",
         },
         pink: {
           main: "#CE608C",
         },
+        purple: {
+          main: "#9e74ce",
+          darker: "#5e437e",
+        },
         red: {
-          main: "#FD5F55",
-          darker: "#E2483D",
+          main: "#ff4c40",
+          darker: "#a02721",
         },
       },
       borderRadius: {
@@ -63,13 +78,9 @@ const config = {
       },
 
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        jumping: {
+          "0%, 30%, 100%": { transform: "translateY(0)" },
+          "20%": { transform: "translateY(-3px)" },
         },
         "pulse-custom": {
           "0%, 100%": { opacity: "1", transform: "scale(1)" },
@@ -80,6 +91,7 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-custom": "pulse-custom 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        jumping: "jumping 0.8s ease-in-out infinite",
       },
       transitionDuration: {
         "2000": "2000ms",

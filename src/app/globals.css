@@ -4,11 +4,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --border: #b9c2d2;
 }
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -18,29 +20,80 @@
     --background: #314045;
     --foreground: #ededed;
     --radius: 0.65rem;
+    --border: #b9c2d2;
   }
 
   .shadow-main-menu {
-    box-shadow: 0px 8px 3px 0px rgba(25, 25, 25, 0.93);
-    -webkit-box-shadow: 0px 8px 3px 0px rgba(25, 25, 25, 0.93);
-    -moz-box-shadow: 0px 8px 3px 0px rgba(25, 25, 25, 0.93);
+    box-shadow: 0px 8px 2px 0px rgb(30, 46, 50);
+    -webkit-box-shadow: 0px 8px 2px 0px rgb(30, 46, 50);
+    -moz-box-shadow: 0px 8px 2px 0px rgb(30, 46, 50);
   }
 
-  .shadow-main-menu-light {
+  .shadow-dark-menu {
+    box-shadow: 0px 8px 3px 0px rgb(13, 23, 25);
+    -webkit-box-shadow: 0px 8px 3px 0px rgb(13, 23, 25);
+    -moz-box-shadow: 0px 8px 3px 0px rgb(13, 23, 25);
+  }
+
+  .shadow-dark-menu-sm {
+    box-shadow: 0px 4px 2px 0px rgb(13, 23, 25);
+    -webkit-box-shadow: 0px 4px 2px 0px rgb(13, 23, 25);
+    -moz-box-shadow: 0px 4px 2px 0px rgb(13, 23, 25);
+  }
+
+  .shadow-light-menu {
     box-shadow: 0px 8px 2px 0px rgba(119, 126, 137, 0.93);
     -webkit-box-shadow: 0px 8px 2px 0px rgba(119, 126, 137, 0.93);
     -moz-box-shadow: 0px 8px 2px 0px rgba(119, 126, 137, 0.93);
   }
 
+  .shadow-light-menu-sm {
+    box-shadow: 0px 4px 1px 0px rgba(119, 126, 137, 0.93);
+    -webkit-box-shadow: 0px 4px 1px 0px rgba(119, 126, 137, 0.93);
+    -moz-box-shadow: 0px 4px 1px 0px rgba(119, 126, 137, 0.93);
+  }
+
   .input-container:focus-within {
     background: #003367;
+  }
+
+  .text-shadow {
+    text-shadow: 4px 2px 2px rgba(0, 0, 0, 0.48);
+  }
+
+  .pixel-format::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: -10px;
+    right: -10px;
+    z-index: -1;
+  }
+
+  .pixel-format::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: -6px;
+    right: -6px;
+    z-index: -1;
+  }
+
+  .pixel-format {
+    z-index: 2;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-size: 1.5rem;
   font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 4px 2px 2px rgba(0, 0, 0, 0.28);
 }
 
 button {

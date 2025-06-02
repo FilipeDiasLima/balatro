@@ -10,7 +10,8 @@ export default function Home() {
     <main className="flex h-screen w-full flex-col items-center justify-center overflow-hidden">
       <BackgroundAnimated />
       <LogoAnimated />
-      <div className="flex flex-row items-end space-x-10 pb-10">
+
+      <div className="flex flex-row items-end space-x-10 pb-14">
         <GameProfile />
         <MenuOptions />
         <GameLanguage />

@@ -10,13 +10,14 @@ export function GameProfile() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-gray-darker shadow-main-menu flex flex-col items-center justify-center rounded-xl p-3 pt-1">
-      <p className="text-2xl leading-8">Perfil</p>
+    <div className="bg-gray-darkest shadow-main-menu flex w-full max-w-64 min-w-36 flex-col items-center justify-center space-y-1 rounded-xl p-3 pt-1">
+      <p className="text-3xl leading-8">Perfil</p>
       <Button
-        className="bg-gray-main border-gray-main h-12 w-28 rounded-lg text-xl"
+        variant="gray"
+        className="h-14 w-full max-w-full rounded-lg px-2"
         onClick={() => setOpen(true)}
       >
-        {user.nickname}
+        <p className="truncate overflow-hidden text-2xl">{user.nickname}</p>
       </Button>
       <ProfileModal open={open} onOpenChange={setOpen} />
     </div>

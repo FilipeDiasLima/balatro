@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div
         className={cn(
-          "bg-blue-main input-container shadow-main-menu hover:bg-blue-deep w-full rounded-xl p-1 transition-colors duration-100",
+          "bg-blue-darker input-container shadow-main-menu hover:bg-blue-deep w-full rounded-xl p-1 transition-colors duration-100",
           mainClassName,
         )}
       >
