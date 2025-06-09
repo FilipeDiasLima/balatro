@@ -28,7 +28,7 @@ export function CollectionModal({ open, onOpenChange }: CollectionModalProps) {
           </Button>
 
           <div className="bg-deepgreen-darkest relative flex flex-row items-center justify-end rounded-xl p-4">
-            <p className="text-background absolute -left-14 -rotate-90 text-4xl uppercase">
+            <p className="text-background absolute -left-14 -rotate-90 text-4xl uppercase text-shadow-none">
               consumíveis
             </p>
             <div className="flex w-[90%] flex-col space-y-3">

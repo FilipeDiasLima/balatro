@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useAnimationFrame } from "motion/react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
@@ -27,10 +28,11 @@ export function AceSpadesAnimated({ hasPressed }: AceSpadesAnimatedProps) {
   return (
     <motion.div ref={ref}>
       <Image
-        src="/images/ace-spades.webp"
+        src="/images/ace-spades.png"
         width={180}
         height={300}
         alt="AsEspadas"
+        className={cn("rounded-md", hasPressed && "card-shadow")}
       />
     </motion.div>
   );

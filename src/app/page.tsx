@@ -1,4 +1,4 @@
-import BackgroundAnimated from "@/components/background-animated";
+import BackgroundAnimated from "@/components/backgrounds/background-animated";
 import { LogoAnimated } from "@/components/logo-animated";
 import { GameLanguage } from "@/components/main-menu/game-language";
 import { GameProfile } from "@/components/main-menu/game-profile";
@@ -22,8 +22,9 @@ export default function Home() {
           href="https://filipe-dias.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
+          className="border-border border-b"
         >
-          <strong>Filipe Dias</strong>
+          Filipe Dias
         </Link>
       </p>
     </main>

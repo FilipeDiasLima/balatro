@@ -1,11 +1,21 @@
-export const fragmentShaderCode = `
+interface SmokeShaderProps {
+  color1?: string;
+  color2?: string;
+  vort_speed?: string;
+}
+
+export const fragmentShaderCode = ({
+  color1 = "0.996078431372549,0.37254901960784315,0.3333333333333333,1.",
+  color2 = "0.,0.615686274509804,1.,1.",
+  vort_speed = "1.",
+}: SmokeShaderProps = {}) => `
 uniform float iTime;
 uniform vec3 iResolution;
 
 float time;
-float vort_speed = 1.;
-vec4 colour_1 = vec4(0.996078431372549,0.37254901960784315,0.3333333333333333,1.);
-vec4 colour_2 = vec4(0.,0.615686274509804,1.,1.);
+float vort_speed = ${vort_speed};
+vec4 colour_1 = vec4(${color1});
+vec4 colour_2 = vec4(${color2});
 float mid_flash = 0.;
 float vort_offset = 0.;
 

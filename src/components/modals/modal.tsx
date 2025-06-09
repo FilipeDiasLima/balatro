@@ -49,14 +49,6 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                   bounce: 0.25,
                 },
               }}
-              exit={{
-                y: 800,
-                transition: {
-                  type: "spring",
-                  duration: 0.5,
-                  bounce: 0.25,
-                },
-              }}
               className={cn(
                 "bg-background border-border shadow-light-menu fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border-4 p-4 pt-6 shadow-lg duration-200 sm:rounded-lg lg:rounded-2xl",
                 className,

@@ -3,6 +3,7 @@
 import { Button } from "@/components/buttons/button";
 import { LocalizationRow } from "@/components/localization-row";
 import { Modal } from "@/components/modals/modal";
+import { TriangleJumping } from "@/components/triangule-jumping";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -143,9 +144,7 @@ export function CreditsModal({ open, onOpenChange }: CreditsModalProps) {
       <div className="flex flex-col items-center space-y-4">
         <div className="flex flex-row items-center justify-center space-x-2 px-8">
           <div className="relative flex justify-center">
-            {optionSelected === "production" && (
-              <div className="border-t-red-main animate-jumping absolute -top-8 mx-auto h-0 w-0 border-t-[24px] border-r-[10px] border-l-[10px] border-r-transparent border-l-transparent" />
-            )}
+            {optionSelected === "production" && <TriangleJumping />}
             <Button
               className="capitalize"
               onClick={() => setOptionSelected("production")}
@@ -154,9 +153,7 @@ export function CreditsModal({ open, onOpenChange }: CreditsModalProps) {
             </Button>
           </div>
           <div className="relative flex justify-center">
-            {optionSelected === "publishing" && (
-              <div className="border-t-red-main animate-jumping absolute -top-8 mx-auto h-0 w-0 border-t-[24px] border-r-[10px] border-l-[10px] border-r-transparent border-l-transparent" />
-            )}
+            {optionSelected === "publishing" && <TriangleJumping />}
             <Button
               className="capitalize"
               onClick={() => setOptionSelected("publishing")}
@@ -165,9 +162,7 @@ export function CreditsModal({ open, onOpenChange }: CreditsModalProps) {
             </Button>
           </div>
           <div className="relative flex justify-center">
-            {optionSelected === "collabs" && (
-              <div className="border-t-red-main animate-jumping absolute -top-8 mx-auto h-0 w-0 border-t-[24px] border-r-[10px] border-l-[10px] border-r-transparent border-l-transparent" />
-            )}
+            {optionSelected === "collabs" && <TriangleJumping />}
             <Button
               className="capitalize"
               onClick={() => setOptionSelected("collabs")}

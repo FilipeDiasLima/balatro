@@ -4,6 +4,7 @@ import { Button } from "@/components/buttons/button";
 import { Input } from "@/components/inputs/input";
 import { Modal } from "@/components/modals/modal";
 import { ProgressRow } from "@/components/progress-row";
+import { TriangleJumping } from "@/components/triangule-jumping";
 import { useApp } from "@/hooks/app";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -32,21 +33,15 @@ export function ProfileModal({ open, onOpenChange }: ProfileModalProps) {
     <Modal open={open} className="flex max-w-[750px] flex-col items-center">
       <div className="flex flex-row items-center justify-center space-x-2">
         <div className="relative flex justify-center">
-          {profileSelected === 1 && (
-            <div className="border-t-red-main animate-jumping absolute -top-8 mx-auto h-0 w-0 border-t-[24px] border-r-[10px] border-l-[10px] border-r-transparent border-l-transparent" />
-          )}
+          {profileSelected === 1 && <TriangleJumping />}
           <Button onClick={() => setProfileSelected(1)}>1</Button>
         </div>
         <div className="relative flex justify-center">
-          {profileSelected === 2 && (
-            <div className="border-t-red-main animate-jumping absolute -top-8 mx-auto h-0 w-0 border-t-[24px] border-r-[10px] border-l-[10px] border-r-transparent border-l-transparent" />
-          )}
+          {profileSelected === 2 && <TriangleJumping />}
           <Button onClick={() => setProfileSelected(2)}>2</Button>
         </div>
         <div className="relative flex justify-center">
-          {profileSelected === 3 && (
-            <div className="border-t-red-main animate-jumping absolute -top-8 mx-auto h-0 w-0 border-t-[24px] border-r-[10px] border-l-[10px] border-r-transparent border-l-transparent" />
-          )}
+          {profileSelected === 3 && <TriangleJumping />}
           <Button onClick={() => setProfileSelected(3)}>3</Button>
         </div>
       </div>

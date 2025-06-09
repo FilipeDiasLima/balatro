@@ -1,10 +1,20 @@
 "use client";
 
-import { fragmentShaderCode } from "@/components/shaders/smoke.glsl";
+import { fragmentShaderCode2 } from "@/components/shaders/smoke2.glsl";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export default function BackgroundAnimated() {
+interface GameBackgroundAnimatedProps {
+  color1?: string;
+  color2?: string;
+  vort_speed?: string;
+}
+
+export default function GameBackgroundAnimated({
+  color1,
+  color2,
+  vort_speed,
+}: GameBackgroundAnimatedProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,7 +38,11 @@ export default function BackgroundAnimated() {
 
     const material = new THREE.ShaderMaterial({
       uniforms,
-      fragmentShader: fragmentShaderCode,
+      fragmentShader: fragmentShaderCode2({
+        color1,
+        color2,
+        vort_speed,
+      }),
     });
 
     const geometry = new THREE.PlaneGeometry(2, 2);
