@@ -5,6 +5,7 @@ export interface GameRoundProps {
   ante: number;
   hands: number;
   discards: number;
+  currentScore: number;
   blindSelected?: "small" | "big" | "boss" | null;
   discardedCards?: { naipe: string; value: string }[];
 }

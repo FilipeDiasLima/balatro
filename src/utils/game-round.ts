@@ -7,6 +7,7 @@ export const initialGameRound: GameRoundProps = {
   discards: 4,
   money: 10,
   hands: 4,
+  currentScore: 0,
   discardedCards: [],
   blindSelected: null,
 };
@@ -23,12 +24,14 @@ export function reducerGameRound(
         ante: 0,
         discards: 4,
         hands: 4,
+        currentScore: 0,
         blindSelected: null,
       };
     case "NEXT_ROUND":
       return {
         ...state,
         round: state.round + 1,
+        currentScore: 0,
         blindSelected: action.payload?.blindSelected,
       };
     case "END_ROUND":
@@ -36,6 +39,7 @@ export function reducerGameRound(
         ...state,
         discards: 4,
         hands: 4,
+        currentScore: 0,
         ante: state.ante + 1,
         blindSelected: null,
       };
@@ -53,7 +57,12 @@ export function reducerGameRound(
     case "UPDATE_HANDS":
       return {
         ...state,
-        hands: action.payload?.hands || state.hands,
+        hands: action.payload?.hands ?? state.hands,
+      };
+    case "UPDATE_SCORE":
+      return {
+        ...state,
+        currentScore: state.currentScore + (action.payload?.currentScore || 0),
       };
     default:
       return state;

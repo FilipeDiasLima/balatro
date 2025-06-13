@@ -84,9 +84,15 @@ export function reducerPockerHands(state: PockerHand[], action: any) {
       return state;
   }
 }
-
-export function getPockerHandByCards(cards: CardProps[]): number {
-  if (cards.length === 0) return 0;
+export function getPockerHandByCards(cards: CardProps[]): {
+  pockerHand: PockerHand | null;
+  acceptedCards: CardProps[] | null;
+} {
+  if (cards.length === 0)
+    return {
+      pockerHand: null,
+      acceptedCards: null,
+    };
 
   const values = cards.map((c) => c.value);
   const naipes = cards.map((c) => c.naipe);
@@ -128,23 +134,94 @@ export function getPockerHandByCards(cards: CardProps[]): number {
 
   const counts = Object.values(valueCount).sort((a, b) => b - a);
 
+  // Helper para encontrar cartas por valor
+  const findCardsByValue = (targetValue: string, count: number) =>
+    cards.filter((c) => c.value === targetValue).slice(0, count);
+
   // Straight Flush
   if ((isStraight || isLowAceStraight) && isFlush && cards.length >= 5)
-    return 1;
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 1) || null,
+      acceptedCards: cards,
+    };
   // Quadra
-  if (counts[0] === 4) return 2;
+  if (counts[0] === 4) {
+    const quadValue = Object.keys(valueCount).find((v) => valueCount[v] === 4)!;
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 2) || null,
+      acceptedCards: findCardsByValue(quadValue, 4),
+    };
+  }
   // Full House
-  if (counts[0] === 3 && counts[1] === 2) return 3;
+  if (counts[0] === 3 && counts[1] === 2) {
+    const tripleValue = Object.keys(valueCount).find(
+      (v) => valueCount[v] === 3,
+    )!;
+    const pairValue = Object.keys(valueCount).find((v) => valueCount[v] === 2)!;
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 3) || null,
+      acceptedCards: [
+        ...findCardsByValue(tripleValue, 3),
+        ...findCardsByValue(pairValue, 2),
+      ],
+    };
+  }
   // Flush
-  if (isFlush && cards.length >= 5) return 4;
+  if (isFlush && cards.length >= 5) {
+    const flushNaipe = Object.keys(naipeCount).find(
+      (n) => naipeCount[n] === cards.length,
+    )!;
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 4) || null,
+      acceptedCards: cards.filter((c) => c.naipe === flushNaipe),
+    };
+  }
   // Sequência
-  if ((isStraight || isLowAceStraight) && cards.length >= 5) return 5;
+  if ((isStraight || isLowAceStraight) && cards.length >= 5) {
+    // Para simplificação, retorna todas as cartas (ajuste se quiser só as 5 da sequência)
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 5) || null,
+      acceptedCards: cards,
+    };
+  }
   // Trinca
-  if (counts[0] === 3) return 6;
+  if (counts[0] === 3) {
+    const tripleValue = Object.keys(valueCount).find(
+      (v) => valueCount[v] === 3,
+    )!;
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 6) || null,
+      acceptedCards: findCardsByValue(tripleValue, 3),
+    };
+  }
   // Dois Pares
-  if (counts[0] === 2 && counts[1] === 2) return 7;
+  if (counts[0] === 2 && counts[1] === 2) {
+    const pairValues = Object.keys(valueCount).filter(
+      (v) => valueCount[v] === 2,
+    );
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 7) || null,
+      acceptedCards: [
+        ...findCardsByValue(pairValues[0], 2),
+        ...findCardsByValue(pairValues[1], 2),
+      ],
+    };
+  }
   // Par
-  if (counts[0] === 2) return 8;
+  if (counts[0] === 2) {
+    const pairValue = Object.keys(valueCount).find((v) => valueCount[v] === 2)!;
+    return {
+      pockerHand: initialPockerHands.find((hand) => hand.id === 8) || null,
+      acceptedCards: findCardsByValue(pairValue, 2),
+    };
+  }
   // Carta Alta
-  return 9;
+  return {
+    pockerHand: initialPockerHands.find((hand) => hand.id === 9) || null,
+    acceptedCards: [
+      cards.reduce((prev, curr) =>
+        valueMap[prev.value] > valueMap[curr.value] ? prev : curr,
+      ),
+    ],
+  };
 }

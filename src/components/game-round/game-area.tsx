@@ -1,13 +1,16 @@
 "use client";
 
+import { StoreMenu } from "@/app/components/store-menu";
 import { FaceDownCardDragged } from "@/components/face-down-card-dragged";
 import { BlindSelect } from "@/components/game-round/blind-select";
 import { PokerGame } from "@/components/game-round/pocker-game";
 import { useApp } from "@/hooks/app";
 import Image from "next/image";
+import { useState } from "react";
 
 export function GameArea() {
   const { gameRound, userDeck } = useApp();
+  const [openStore, setOpenStore] = useState(false);
 
   const availableCards = userDeck.deck.map((deck) => {
     return deck.cards.filter((card) => !card.available);
@@ -36,7 +39,13 @@ export function GameArea() {
 
       <section className="grid h-full w-full grid-cols-5 gap-5 xl:gap-1">
         <div className="col-span-4">
-          {gameRound.blindSelected ? <PokerGame /> : <BlindSelect />}
+          {openStore ? (
+            <StoreMenu />
+          ) : gameRound.blindSelected ? (
+            <PokerGame />
+          ) : (
+            <BlindSelect />
+          )}
         </div>
         <div className="flex w-[220px] flex-col items-end justify-end pb-10">
           <div className="relative">

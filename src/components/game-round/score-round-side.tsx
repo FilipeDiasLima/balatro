@@ -8,16 +8,25 @@ import { PockerHandsModal } from "@/components/modals/pocker-hands-modal";
 import { SettingsInGameModal } from "@/components/modals/settings-in-game-modal";
 import JumpingText from "@/components/texts/jumping-text";
 import { useApp } from "@/hooks/app";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 export function ScoreRoundSide() {
-  const { gameRound, currentPockerHand } = useApp();
-  const cardPoint = 0;
-  const multi = 0;
+  const { gameRound, handScore, currentPockerHand, playHand, setHandScore } =
+    useApp();
 
   const [openInfo, setOpenInfo] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
+
+  useEffect(() => {
+    if (handScore > 0) {
+      const timer = setTimeout(() => {
+        setHandScore(0);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [handScore]);
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-end space-y-4 pb-10">
@@ -34,23 +43,36 @@ export function ScoreRoundSide() {
       <CurrentStake />
 
       <CardUI className="">
-        <header className="h-24 xl:h-16">
-          {currentPockerHand && (
-            <motion.p className="text-center text-4xl xl:text-3xl">
-              {currentPockerHand.name} nv.{currentPockerHand.level}
-            </motion.p>
-          )}
+        <header className="flex h-24 flex-col items-center justify-center xl:h-16">
+          <AnimatePresence initial={false}>
+            {currentPockerHand && (
+              <motion.p className="text-center text-5xl leading-4 xl:text-4xl">
+                {currentPockerHand.name} nv.{currentPockerHand.level}
+              </motion.p>
+            )}
+            {!currentPockerHand && handScore > 0 ? (
+              <motion.div
+                initial={{ opacity: 0, y: 0, scale: 0.5 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0.5, y: -100, x: 80, scale: 0.5 }}
+                transition={{ duration: 0.2 }}
+                className="text-center text-7xl leading-3 xl:text-6xl"
+              >
+                + {handScore}
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </header>
 
         <main className="flex w-full flex-row space-x-4 xl:space-x-2">
           <div className="bg-blue-main border-blue-darker flex flex-1 justify-end rounded-xl border-b-[5px] px-2 py-1">
-            <p className="text-6xl">{currentPockerHand?.chips ?? 0}</p>
+            <p className="text-6xl">{playHand.chips ?? 0}</p>
           </div>
 
           <p className="text-red-main text-6xl">X</p>
 
           <div className="bg-red-main border-red-darker flex flex-1 justify-start rounded-xl border-b-[5px] px-2 py-1">
-            <p className="text-6xl">{currentPockerHand?.mult ?? 0}</p>
+            <p className="text-6xl">{playHand.mult ?? 0}</p>
           </div>
         </main>
       </CardUI>

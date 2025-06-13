@@ -1,9 +1,23 @@
 "use client";
 
 import { CardUI, CardUIContent } from "@/components/cards/card-ui";
+import { useApp } from "@/hooks/app";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export function CurrentStake() {
+  const { gameRound } = useApp();
+
+  const [currentScore, setCurrentScore] = useState(gameRound.currentScore ?? 0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentScore(gameRound.currentScore);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [gameRound.currentScore]);
+
   return (
     <CardUI className="flex-row p-2">
       <p className="text-2xl leading-5">
@@ -17,7 +31,7 @@ export function CurrentStake() {
           width={30}
           height={30}
         />
-        <p className="text-5xl">0</p>
+        <p className="text-5xl">{currentScore}</p>
       </CardUIContent>
     </CardUI>
   );
