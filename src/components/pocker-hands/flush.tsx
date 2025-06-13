@@ -1,10 +1,10 @@
 "use client";
 
+import { CardContainer } from "@/components/cards/card-container";
 import { CardDancing } from "@/components/cards/card-dancing";
 import { PockerHandTooltip } from "@/components/pocker-hands/pocker-hand-tooltip";
 import { PockerHandTrigger } from "@/components/pocker-hands/pocker-hand-trigger";
 import { useApp } from "@/hooks/app";
-import Image from "next/image";
 import { useState } from "react";
 
 export function Flush() {
@@ -34,44 +34,29 @@ export function Flush() {
       {open && (
         <PockerHandTooltip description="5 cartas com o mesmo naipe">
           <CardDancing>
-            <Image
-              src="/images/hearts/Ace_of_Hearts.webp"
-              alt="QueenSpades"
+            <CardContainer
+              naipe="hearts"
+              value="Ace"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/hearts/King_of_Hearts.webp"
-              alt="JackSpades"
+            <CardContainer
+              naipe="hearts"
+              value="King"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/hearts/10_of_Hearts.webp"
-              alt="10Spades"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="hearts" value="10" width={100} height={100} />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/hearts/5_of_Hearts.webp"
-              alt="9nSpades"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="hearts" value="5" width={100} height={100} />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/hearts/4_of_Hearts.webp"
-              alt="3Clubs"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="hearts" value="4" width={100} height={100} />
           </CardDancing>
         </PockerHandTooltip>
       )}

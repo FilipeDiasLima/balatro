@@ -1,10 +1,10 @@
 "use client";
 
+import { CardContainer } from "@/components/cards/card-container";
 import { CardDancing } from "@/components/cards/card-dancing";
 import { PockerHandTooltip } from "@/components/pocker-hands/pocker-hand-tooltip";
 import { PockerHandTrigger } from "@/components/pocker-hands/pocker-hand-trigger";
 import { useApp } from "@/hooks/app";
-import Image from "next/image";
 import { useState } from "react";
 
 export function FullHouse() {
@@ -34,41 +34,36 @@ export function FullHouse() {
       {open && (
         <PockerHandTooltip description="Uma Trinca e um Par">
           <CardDancing>
-            <Image
-              src="/images/hearts/King_of_Hearts.webp"
-              alt="QueenSpades"
+            <CardContainer
+              naipe="hearts"
+              value="King"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/clubs/King_of_Clubs.webp"
-              alt="JackSpades"
+            <CardContainer
+              naipe="clubs"
+              value="King"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/diamonds/King_of_Diamonds.webp"
-              alt="10Spades"
+            <CardContainer
+              naipe="diamonds"
+              value="King"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/spades/2_of_Spades.webp"
-              alt="9nSpades"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="spades" value="2" width={100} height={100} />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/diamonds/2_of_Diamonds.webp"
-              alt="3Clubs"
+            <CardContainer
+              naipe="diamonds"
+              value="2"
               width={100}
               height={100}
             />

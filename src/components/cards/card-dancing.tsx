@@ -4,12 +4,18 @@ import { animate } from "motion";
 import * as motion from "motion/react-client";
 import { useEffect, useRef } from "react";
 
-export function CardDancing({ children }: { children: React.ReactNode }) {
+export function CardDancing({
+  slow = false,
+  children,
+}: {
+  slow?: boolean;
+  children: React.ReactNode;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   // const delay = Math.floor(Math.random() * 2001);
   const duration = Math.floor(Math.random() * 2001) + 1000; // 100 a 200
 
-  const randomInitalRotate = Math.floor(Math.random() * 6);
+  const randomInitalRotate = Math.floor(Math.random() * (slow ? 3 : 6));
 
   useEffect(() => {
     if (ref.current) {
@@ -21,7 +27,7 @@ export function CardDancing({ children }: { children: React.ReactNode }) {
           repeatType: "mirror",
           repeatDelay: 0,
           ease: "easeIn",
-          duration: duration / 1000,
+          duration: duration / (slow ? 500 : 1000),
           delay: 0.1,
         },
       );

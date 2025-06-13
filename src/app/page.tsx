@@ -1,32 +1,17 @@
+"use client";
+
+import { GameMenu } from "@/app/components/game-menu";
+import { RedDeckGame } from "@/app/components/red-deck-game";
 import BackgroundAnimated from "@/components/backgrounds/background-animated";
-import { LogoAnimated } from "@/components/logo-animated";
-import { GameLanguage } from "@/components/main-menu/game-language";
-import { GameProfile } from "@/components/main-menu/game-profile";
-import { MenuOptions } from "@/components/main-menu/menu-options";
-import Link from "next/link";
+import { useApp } from "@/hooks/app";
 
 export default function Home() {
+  const { gameStarted } = useApp();
+
   return (
     <main className="flex h-screen w-full flex-col items-center justify-center overflow-hidden">
       <BackgroundAnimated />
-      <LogoAnimated />
-
-      <div className="flex flex-row items-end space-x-10 pb-14">
-        <GameProfile />
-        <MenuOptions />
-        <GameLanguage />
-      </div>
-      <p className="absolute top-5 right-10 text-center text-lg text-white">
-        Desenvolvido por{" "}
-        <Link
-          href="https://filipe-dias.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="border-border border-b"
-        >
-          Filipe Dias
-        </Link>
-      </p>
+      {!gameStarted ? <GameMenu /> : <RedDeckGame />}
     </main>
   );
 }

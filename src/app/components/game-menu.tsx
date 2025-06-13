@@ -1,0 +1,30 @@
+import { LogoAnimated } from "@/components/logo-animated";
+import { GameLanguage } from "@/components/main-menu/game-language";
+import { GameProfile } from "@/components/main-menu/game-profile";
+import { MenuOptions } from "@/components/main-menu/menu-options";
+import Link from "next/link";
+
+export function GameMenu() {
+  return (
+    <>
+      <LogoAnimated />
+
+      <div className="flex flex-row items-end space-x-10 pb-14">
+        <GameProfile />
+        <MenuOptions />
+        <GameLanguage />
+      </div>
+      <p className="absolute top-5 right-10 text-center text-lg text-white">
+        Desenvolvido por{" "}
+        <Link
+          href="https://filipe-dias.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border-border border-b"
+        >
+          Filipe Dias
+        </Link>
+      </p>
+    </>
+  );
+}

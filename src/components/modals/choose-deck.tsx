@@ -3,8 +3,8 @@
 import { Button } from "@/components/buttons/button";
 import { FaceDownCardDragged } from "@/components/face-down-card-dragged";
 import { Modal } from "@/components/modals/modal";
+import { useApp } from "@/hooks/app";
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 
 interface ChooseDeckModalProps {
@@ -17,6 +17,7 @@ export function ChooseDeckModal({
   onOpenChange,
 }: ChooseDeckModalProps) {
   const constraintsRef = useRef<HTMLDivElement>(null);
+  const { setGameStarted } = useApp();
 
   return (
     <Modal
@@ -103,11 +104,12 @@ export function ChooseDeckModal({
           </Button>
         </section>
 
-        <Link href="/red-deck-game" className="w-[60%]">
-          <Button className="bg-blue-main hover:bg-blue-darker mt-14 h-24 w-full text-6xl uppercase">
-            jogar
-          </Button>
-        </Link>
+        <Button
+          className="bg-blue-main hover:bg-blue-darker mt-14 h-24 w-[60%] text-6xl uppercase"
+          onClick={() => setGameStarted(true)}
+        >
+          jogar
+        </Button>
       </div>
       <Button
         className="mt-4 w-full"

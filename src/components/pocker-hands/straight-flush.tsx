@@ -1,10 +1,10 @@
 "use client";
 
+import { CardContainer } from "@/components/cards/card-container";
 import { CardDancing } from "@/components/cards/card-dancing";
 import { PockerHandTooltip } from "@/components/pocker-hands/pocker-hand-tooltip";
 import { PockerHandTrigger } from "@/components/pocker-hands/pocker-hand-trigger";
 import { useApp } from "@/hooks/app";
-import Image from "next/image";
 import { useState } from "react";
 
 export function StraightFlush() {
@@ -34,44 +34,29 @@ export function StraightFlush() {
       {open && (
         <PockerHandTooltip description="5 cartas em sequência {classes consecutivas} com todas as cartas tendo o mesmo naipe">
           <CardDancing>
-            <Image
-              src="/images/spades/Queen_of_Spades.webp"
-              alt="QueenSpades"
+            <CardContainer
+              naipe="spades"
+              value="Queen"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/spades/Jack_of_Spades.webp"
-              alt="JackSpades"
+            <CardContainer
+              naipe="spades"
+              value="Jack"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/spades/10_of_Spades.webp"
-              alt="10Spades"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="spades" value="10" width={100} height={100} />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/spades/9_of_Spades.webp"
-              alt="9nSpades"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="spades" value="9" width={100} height={100} />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/spades/8_of_Spades.webp"
-              alt="8Spades"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="spades" value="8" width={100} height={100} />
           </CardDancing>
         </PockerHandTooltip>
       )}

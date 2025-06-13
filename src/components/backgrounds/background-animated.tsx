@@ -1,6 +1,8 @@
 "use client";
 
 import { fragmentShaderCode } from "@/components/shaders/smoke.glsl";
+import { fragmentShaderCode2 } from "@/components/shaders/smoke2.glsl";
+import { useApp } from "@/hooks/app";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -16,6 +18,7 @@ export default function BackgroundAnimated({
   vort_speed,
 }: BackgroundAnimatedProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { gameStarted } = useApp();
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -36,13 +39,21 @@ export default function BackgroundAnimated({
       },
     };
 
+    console.log({ gameStarted });
+
     const material = new THREE.ShaderMaterial({
       uniforms,
-      fragmentShader: fragmentShaderCode({
-        color1,
-        color2,
-        vort_speed,
-      }),
+      fragmentShader: !gameStarted
+        ? fragmentShaderCode({
+            color1,
+            color2,
+            vort_speed,
+          })
+        : fragmentShaderCode2({
+            color1: "71./255.,139./255., 110./255., 1",
+            color2: "55./255.,112./255., 88./255., 1",
+            vort_speed: "0.08",
+          }),
     });
 
     const geometry = new THREE.PlaneGeometry(2, 2);
@@ -64,7 +75,7 @@ export default function BackgroundAnimated({
       renderer.dispose();
       containerRef.current?.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [gameStarted]);
 
   return <div className="absolute -z-10" ref={containerRef} />;
 }

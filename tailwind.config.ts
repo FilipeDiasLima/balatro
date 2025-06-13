@@ -9,6 +9,13 @@ const config = {
   ],
   prefix: "",
   theme: {
+    screens: {
+      "2xl": { max: "1920px" },
+      xl: { max: "1540px" },
+      lg: { max: "1280px" },
+      md: { max: "768px" },
+      sm: { max: "640px" },
+    },
     container: {
       center: true,
       padding: "2rem",

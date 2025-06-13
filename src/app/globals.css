@@ -71,6 +71,12 @@
     -moz-box-shadow: 6px 20px 3px 0px rgba(0, 0, 0, 0.38);
   }
 
+  .card-shadow-sm-left {
+    box-shadow: -5px 6px 8px 0px rgba(100, 100, 100, 0.75);
+    -webkit-box-shadow: -5px 6px 8px 0px rgba(100, 100, 100, 0.75);
+    -moz-box-shadow: -5px 6px 8px 0px rgba(100, 100, 100, 0.75);
+  }
+
   .input-container:focus-within {
     background: #003367;
   }

@@ -11,10 +11,12 @@ import { forwardRef, useState } from "react";
 export interface CardDraggedProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   constraintsRef?: React.RefObject<HTMLDivElement | null>;
+  style?: React.CSSProperties;
+  onClick?: () => void;
 }
 
 const CardDragged = forwardRef<HTMLDivElement, CardDraggedProps>(
-  ({ children, constraintsRef, ...props }, ref) => {
+  ({ children, constraintsRef, style, onClick }, ref) => {
     const [hasPressed, setHasPressed] = useState(false);
 
     const dragControls = useDragControls();
@@ -27,6 +29,7 @@ const CardDragged = forwardRef<HTMLDivElement, CardDraggedProps>(
         x: 0,
         y: 0,
         transition: { type: "spring", bounce: 0.25, duration: 0.5 },
+        zIndex: 2,
       });
     }
 
@@ -44,11 +47,13 @@ const CardDragged = forwardRef<HTMLDivElement, CardDraggedProps>(
         animationControls.start({
           rotate: 0,
           transition: { type: "spring", bounce: 0.5, duration: 0.5 },
+          zIndex: 100,
         });
       } else {
         animationControls.start({
           rotate: clamp(((10 * info.delta.x) / 10) * 2, -30, 30),
           transition: { type: "spring", bounce: 0.5, duration: 0.5 },
+          zIndex: 100,
         });
       }
     }
@@ -93,13 +98,15 @@ const CardDragged = forwardRef<HTMLDivElement, CardDraggedProps>(
         rotateY: 0,
         rotateX: 0,
         transformPerspective: 2,
+        zIndex: 2,
       });
     }
 
     function handleClick() {
       playClickSound();
+      onClick && onClick();
       animationControls.start({
-        scale: [null, 1.3, 1.2],
+        scale: [null, 1.3, 1.1],
         transition: {
           duration: 0.1,
           times: [0, 0.9, 1],
@@ -123,12 +130,13 @@ const CardDragged = forwardRef<HTMLDivElement, CardDraggedProps>(
         onClick={handleClick}
         onMouseDown={() => setHasPressed(true)}
         onMouseUp={() => setHasPressed(false)}
-        className="z-[2] h-fit w-fit"
+        className="h-fit w-fit"
         animate={animationControls}
         style={{
           transformStyle: "preserve-3d",
           transformOrigin: "center",
           perspective: "320px",
+          ...style,
         }}
         whileHover={{
           scale: [null, 1.2, 1.1],
@@ -146,7 +154,7 @@ const CardDragged = forwardRef<HTMLDivElement, CardDraggedProps>(
         <div className="h-full w-full">
           <div
             className={cn(
-              "absolute z-10 h-full w-full",
+              "absolute z-10 h-full w-full rounded-md",
               hasPressed && "card-shadow",
             )}
           />

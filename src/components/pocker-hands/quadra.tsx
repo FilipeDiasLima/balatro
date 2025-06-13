@@ -1,10 +1,10 @@
 "use client";
 
+import { CardContainer } from "@/components/cards/card-container";
 import { CardDancing } from "@/components/cards/card-dancing";
 import { PockerHandTooltip } from "@/components/pocker-hands/pocker-hand-tooltip";
 import { PockerHandTrigger } from "@/components/pocker-hands/pocker-hand-trigger";
 import { useApp } from "@/hooks/app";
-import Image from "next/image";
 import { useState } from "react";
 
 export function Quadra() {
@@ -34,44 +34,39 @@ export function Quadra() {
       {open && (
         <PockerHandTooltip description="4 cartas com a mesma claase. Elas podem ser jogadas com 1 outras carta não pontuada">
           <CardDancing>
-            <Image
-              src="/images/spades/Jack_of_Spades.webp"
-              alt="QueenSpades"
+            <CardContainer
+              naipe="spades"
+              value="Jack"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/hearts/Jack_of_Hearts.webp"
-              alt="JackSpades"
+            <CardContainer
+              naipe="hearts"
+              value="Jack"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/clubs/Jack_of_Clubs.webp"
-              alt="10Spades"
+            <CardContainer
+              naipe="clubs"
+              value="Jack"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/diamonds/Jack_of_Diamonds.webp"
-              alt="9nSpades"
+            <CardContainer
+              naipe="diamonds"
+              value="Jack"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/clubs/3_of_Clubs.webp"
-              alt="3Clubs"
-              width={60}
-              height={100}
-            />
+            <CardContainer naipe="clubs" value="3" width={60} height={100} />
           </CardDancing>
         </PockerHandTooltip>
       )}

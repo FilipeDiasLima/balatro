@@ -1,10 +1,10 @@
 "use client";
 
+import { CardContainer } from "@/components/cards/card-container";
 import { CardDancing } from "@/components/cards/card-dancing";
 import { PockerHandTooltip } from "@/components/pocker-hands/pocker-hand-tooltip";
 import { PockerHandTrigger } from "@/components/pocker-hands/pocker-hand-trigger";
 import { useApp } from "@/hooks/app";
-import Image from "next/image";
 import { useState } from "react";
 
 export function DoisPares() {
@@ -37,44 +37,34 @@ export function DoisPares() {
           description="2 pares de cartas com classes diferentes, podem ser jogadas com 1 outra carta não pontuada"
         >
           <CardDancing>
-            <Image
-              src="/images/hearts/Ace_of_Hearts.webp"
-              alt="JackSpades"
+            <CardContainer
+              naipe="hearts"
+              value="Ace"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/diamonds/Ace_of_Diamonds.webp"
-              alt="10Spades"
+            <CardContainer
+              naipe="diamonds"
+              value="Ace"
               width={100}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/clubs/Queen_of_Clubs.webp"
-              alt="QueenSpades"
+            <CardContainer
+              naipe="clubs"
+              value="Queen"
               width={60}
               height={100}
             />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/hearts/4_of_Hearts.webp"
-              alt="9nSpades"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="hearts" value="4" width={100} height={100} />
           </CardDancing>
           <CardDancing>
-            <Image
-              src="/images/clubs/4_of_Clubs.webp"
-              alt="3Clubs"
-              width={100}
-              height={100}
-            />
+            <CardContainer naipe="clubs" value="4" width={100} height={100} />
           </CardDancing>
         </PockerHandTooltip>
       )}
