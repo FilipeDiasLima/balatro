@@ -3,9 +3,10 @@
 import { Button } from "@/components/buttons/button";
 import { FaceDownCardDragged } from "@/components/face-down-card-dragged";
 import { Modal } from "@/components/modals/modal";
+import { TriangleJumping } from "@/components/triangule-jumping";
 import { useApp } from "@/hooks/app";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 interface ChooseDeckModalProps {
   open?: boolean;
@@ -17,7 +18,18 @@ export function ChooseDeckModal({
   onOpenChange,
 }: ChooseDeckModalProps) {
   const constraintsRef = useRef<HTMLDivElement>(null);
-  const { setGameStarted } = useApp();
+  const { setGameStarted, resetGame } = useApp();
+
+  const [profileSelected, setProfileSelected] = useState(2);
+
+  function handleStartGame() {
+    if (profileSelected === 1) {
+      resetGame();
+    }
+    setTimeout(() => {
+      setGameStarted(true);
+    }, 500);
+  }
 
   return (
     <Modal
@@ -26,10 +38,33 @@ export function ChooseDeckModal({
       ref={constraintsRef}
     >
       <div className="flex w-full flex-col items-center space-y-10 px-20">
+        <div className="flex flex-row items-center justify-center space-x-2">
+          <div className="relative flex justify-center">
+            {profileSelected === 1 && <TriangleJumping />}
+            <Button
+              className="w-fit px-4"
+              onClick={() => setProfileSelected(1)}
+            >
+              Nova tentativa
+            </Button>
+          </div>
+          <div className="relative flex justify-center">
+            {profileSelected === 2 && <TriangleJumping />}
+            <Button onClick={() => setProfileSelected(2)}>Continuar</Button>
+          </div>
+          <div className="relative flex justify-center">
+            {profileSelected === 3 && <TriangleJumping />}
+            <Button onClick={() => setProfileSelected(3)}>Desafios</Button>
+          </div>
+        </div>
         <section className="grid w-full grid-cols-8 gap-4">
-          <Button className="h-full w-fit justify-self-end px-6 text-4xl">
-            {"<"}
-          </Button>
+          {profileSelected === 1 ? (
+            <Button className="h-full w-fit justify-self-end px-6 text-4xl">
+              {"<"}
+            </Button>
+          ) : (
+            <div />
+          )}
 
           <div className="bg-deepgreen-darkest shadow-dark-menu-sm col-span-6 flex w-full flex-row rounded-xl p-4">
             <div className="relative z-10 w-[160px]">
@@ -60,8 +95,11 @@ export function ChooseDeckModal({
               </div>
             </div>
           </div>
-
-          <Button className="h-full w-fit px-6 text-4xl">{">"}</Button>
+          {profileSelected === 1 ? (
+            <Button className="h-full w-fit px-6 text-4xl">{">"}</Button>
+          ) : (
+            <div />
+          )}
         </section>
 
         <section className="grid w-full grid-cols-8 gap-4">
@@ -106,7 +144,7 @@ export function ChooseDeckModal({
 
         <Button
           className="bg-blue-main hover:bg-blue-darker mt-14 h-24 w-[60%] text-6xl uppercase"
-          onClick={() => setGameStarted(true)}
+          onClick={handleStartGame}
         >
           jogar
         </Button>

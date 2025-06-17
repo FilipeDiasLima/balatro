@@ -34,6 +34,7 @@ export function reducerGameRound(
         ...state,
         round: state.round + 1,
         currentScore: 0,
+        discardedCards: [],
         blindSelected: action.payload?.blindSelected,
       };
     case "END_ROUND":
@@ -44,6 +45,7 @@ export function reducerGameRound(
         currentScore: 0,
         ante: state.ante + 1,
         blindSelected: null,
+        discardedCards: [],
         money: state.money + (action.payload?.money || 0),
       };
     case "UPDATE_DECK":

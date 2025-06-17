@@ -46,7 +46,7 @@ export function StoreMenu({ closeStore }: StoreMenuProps) {
           <JokerContainer
             value="joker_impar"
             width={90}
-            description="Cartas jogadas com valor ímpar dará +31 Chips quando pontudas (A, 9, 7, 5, 3)"
+            description="Cartas jogadas com valor Ímpar dará +31 Chips quando pontudas (A, 9, 7, 5, 3)"
             price={6}
             showPrice
             disabled={userDeck.jokers.includes("joker_impar")}
@@ -57,7 +57,7 @@ export function StoreMenu({ closeStore }: StoreMenuProps) {
           <JokerContainer
             value="joker_par"
             width={90}
-            description="Cartas jogadas com valor par dará +4 Mult quando pontuadas (10, 8, 6, 4, 2)"
+            description="Cartas jogadas com valor Par dará +4 Mult quando pontuadas (10, 8, 6, 4, 2)"
             price={6}
             showPrice
             disabled={userDeck.jokers.includes("joker_par")}

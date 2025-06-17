@@ -91,6 +91,21 @@ export function PokerGame() {
 
       let current = 0;
 
+      async function runAnimationsSequentially(
+        animations: (() => Promise<void>)[],
+      ) {
+        for (let i = 0; i < animations.length; i++) {
+          if (i === 0) {
+            // Espera 1 segundo antes da primeira animação do array
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }
+          await animations[i]();
+          if (i < animations.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }
+        }
+      }
+
       function animateNext() {
         if (current >= indexesToAnimate.length) {
           setTimeout(() => {
@@ -116,33 +131,124 @@ export function PokerGame() {
           return;
         }
 
+        if (current >= indexesToAnimate.length) {
+          setTimeout(() => {
+            setCardsCounting([]);
+            setCountingScore(false);
+            setNewScore();
+          }, 1000);
+          return;
+        }
+
         animateAcceptedCard(indexesToAnimate[current]);
         const card = cardsCounting[indexesToAnimate[current]].card;
         const cardValue = getCardValue(card.value);
 
-        if (userDeck.jokers.includes("joker_par") && cardValue % 2 === 0) {
-          setTimeout(() => {
-            toggleJokerAnimation("joker_par");
-            setTimeout(() => {
-              setChipsAndMult("mult", 4);
-              toggleJokerAnimation("joker_par");
-              current++;
-              setTimeout(animateNext, 500);
-            }, 1000);
-          }, 1000);
-        } else if (
-          userDeck.jokers.includes("joker_impar") &&
-          cardValue % 2 !== 0
+        // Monta lista de animações para a carta atual
+        const animations: (() => Promise<void>)[] = [];
+
+        if (
+          userDeck.jokers.includes("joker_par") &&
+          cardValue % 2 === 0 &&
+          !["King", "Queen", "Jack"].includes(card.value)
         ) {
-          setTimeout(() => {
-            toggleJokerAnimation("joker_impar");
-            setTimeout(() => {
-              setChipsAndMult("chips", 31);
-              toggleJokerAnimation("joker_impar");
-              current++;
-              setTimeout(animateNext, 500);
-            }, 1000);
-          }, 1000);
+          animations.push(
+            () =>
+              new Promise((resolve) => {
+                toggleJokerAnimation("joker_par");
+                setTimeout(() => {
+                  setChipsAndMult("mult", 4);
+                  toggleJokerAnimation("joker_par");
+                  resolve();
+                }, 1000);
+              }),
+          );
+        }
+
+        if (userDeck.jokers.includes("joker_impar") && cardValue % 2 !== 0) {
+          animations.push(
+            () =>
+              new Promise((resolve) => {
+                toggleJokerAnimation("joker_impar");
+                setTimeout(() => {
+                  setChipsAndMult("chips", 31);
+                  toggleJokerAnimation("joker_impar");
+                  resolve();
+                }, 1000);
+              }),
+          );
+        }
+
+        if (
+          userDeck.jokers.includes("joker_hearts") &&
+          card.naipe === "hearts"
+        ) {
+          animations.push(
+            () =>
+              new Promise((resolve) => {
+                toggleJokerAnimation("joker_hearts");
+                setTimeout(() => {
+                  setChipsAndMult("mult", 3);
+                  toggleJokerAnimation("joker_hearts");
+                  resolve();
+                }, 1000);
+              }),
+          );
+        }
+
+        if (
+          userDeck.jokers.includes("joker_diamonds") &&
+          card.naipe === "diamonds"
+        ) {
+          animations.push(
+            () =>
+              new Promise((resolve) => {
+                toggleJokerAnimation("joker_diamonds");
+                setTimeout(() => {
+                  setChipsAndMult("mult", 3);
+                  toggleJokerAnimation("joker_diamonds");
+                  resolve();
+                }, 1000);
+              }),
+          );
+        }
+
+        if (
+          userDeck.jokers.includes("joker_spades") &&
+          card.naipe === "spades"
+        ) {
+          animations.push(
+            () =>
+              new Promise((resolve) => {
+                toggleJokerAnimation("joker_spades");
+                setTimeout(() => {
+                  setChipsAndMult("mult", 3);
+                  toggleJokerAnimation("joker_spades");
+                  resolve();
+                }, 1000);
+              }),
+          );
+        }
+
+        if (userDeck.jokers.includes("joker_clubs") && card.naipe === "clubs") {
+          animations.push(
+            () =>
+              new Promise((resolve) => {
+                toggleJokerAnimation("joker_clubs");
+                setTimeout(() => {
+                  setChipsAndMult("mult", 3);
+                  toggleJokerAnimation("joker_clubs");
+                  resolve();
+                }, 1000);
+              }),
+          );
+        }
+
+        if (animations.length > 0) {
+          runAnimationsSequentially(animations).then(() => {
+            current++;
+            setTimeout(animateNext, 1000);
+          });
         } else {
           current++;
           setTimeout(animateNext, 1000);

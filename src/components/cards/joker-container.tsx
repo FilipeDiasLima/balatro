@@ -87,11 +87,11 @@ export function JokerContainer({
       <AnimatePresence initial={false}>
         {showScore && (
           <motion.p
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1.4 }}
+            initial={{ opacity: 0, scale: 0.5, y: 0 }}
+            animate={{ opacity: 1, scale: 1.4, y: 10 }}
             exit={{ opacity: 0, scale: 1, x: -800, y: 600 }}
             transition={{ duration: 0.3 }}
-            className="absolute -bottom-10 z-10 w-full text-center text-5xl xl:text-4xl"
+            className="absolute -bottom-10 z-10 w-full text-center text-3xl xl:text-2xl"
           >
             {["joker_mult", "joker_par"].includes(value) ? (
               <span className="text-red-main">+4 Mult</span>

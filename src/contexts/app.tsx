@@ -168,7 +168,7 @@ export function AppProvider({ children }: AppProviderProps) {
     const selectedBlind = blinds.find(
       (blind: BlindProps) => blind.type === gameRound.blindSelected,
     );
-    console.log({ selectedBlind });
+    dispatchUserDeck({ type: "RESET" });
     setRoundHand([]);
     if (selectedBlind.type !== "boss") {
       dispatchBlinds({
