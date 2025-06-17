@@ -439,7 +439,10 @@ export function AppProvider({ children }: AppProviderProps) {
           setGameStarted(false);
           resetGame();
         }}
-        action={nextRound}
+        action={() => {
+          nextRound();
+          setOpenLoseRoundModal(false);
+        }}
       />
     </AppContext.Provider>
   );
