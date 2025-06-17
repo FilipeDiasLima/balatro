@@ -26,6 +26,7 @@ export function BlindSelect() {
             tag={blind.tag}
             score={blind.score}
             skipped={blind.skipped}
+            finished={blind.finished}
             onChoose={() => chooseBlind(blind.type)}
           />
         ))}

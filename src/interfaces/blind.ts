@@ -4,5 +4,6 @@ export interface BlindProps {
   tag?: string;
   name: string;
   type: "small" | "big" | "boss";
-  skipped?: boolean;
+  skipped: boolean;
+  finished: boolean;
 }

@@ -1,6 +1,7 @@
 import { UserDeckProps } from "@/interfaces/user-deck";
 
 export const initialUserDeck: UserDeckProps = {
+  jokers: [],
   deck: [
     {
       id: "spades",
@@ -102,6 +103,25 @@ export function reducerUserDeck(
               }
             : deck,
         ),
+      };
+    }
+    case "ADD_JOKER": {
+      const { joker } = action.payload;
+
+      if (state.jokers.includes(joker) || state.jokers.length >= 5) {
+        return state;
+      }
+
+      return {
+        ...state,
+        jokers: [...state.jokers, joker],
+      };
+    }
+    case "REMOVE_JOKER": {
+      const { joker } = action.payload;
+      return {
+        ...state,
+        jokers: state.jokers.filter((j) => j !== joker),
       };
     }
     default:

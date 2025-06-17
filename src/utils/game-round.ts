@@ -1,7 +1,7 @@
 import { GameRoundProps } from "@/interfaces/game";
 
 export const initialGameRound: GameRoundProps = {
-  ante: 1,
+  ante: 0,
   deck: "red",
   round: 0,
   discards: 4,
@@ -24,7 +24,9 @@ export function reducerGameRound(
         ante: 0,
         discards: 4,
         hands: 4,
+        money: 10,
         currentScore: 0,
+        discardedCards: [],
         blindSelected: null,
       };
     case "NEXT_ROUND":
@@ -42,6 +44,7 @@ export function reducerGameRound(
         currentScore: 0,
         ante: state.ante + 1,
         blindSelected: null,
+        money: state.money + (action.payload?.money || 0),
       };
     case "UPDATE_DECK":
       return {
@@ -63,6 +66,16 @@ export function reducerGameRound(
       return {
         ...state,
         currentScore: state.currentScore + (action.payload?.currentScore || 0),
+      };
+    case "ADD_MONEY":
+      return {
+        ...state,
+        money: state.money + (action.payload?.money || 0),
+      };
+    case "SUBTRACT_MONEY":
+      return {
+        ...state,
+        money: state.money - (action.payload?.money || 0),
       };
     default:
       return state;

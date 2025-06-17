@@ -4,6 +4,7 @@ import { Button } from "@/components/buttons/button";
 import { CardUI, CardUIContent } from "@/components/cards/card-ui";
 import { CurrentStake } from "@/components/current-stake";
 import { BlindHeader } from "@/components/game-round/blind-header";
+import { StoreSign } from "@/components/game-round/store-sign";
 import { PockerHandsModal } from "@/components/modals/pocker-hands-modal";
 import { SettingsInGameModal } from "@/components/modals/settings-in-game-modal";
 import JumpingText from "@/components/texts/jumping-text";
@@ -12,8 +13,15 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export function ScoreRoundSide() {
-  const { gameRound, handScore, currentPockerHand, playHand, setHandScore } =
-    useApp();
+  const {
+    openStore,
+    gameRound,
+    handScore,
+    blindSelected,
+    currentPockerHand,
+    playHand,
+    setHandScore,
+  } = useApp();
 
   const [openInfo, setOpenInfo] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
@@ -22,7 +30,7 @@ export function ScoreRoundSide() {
     if (handScore > 0) {
       const timer = setTimeout(() => {
         setHandScore(0);
-      }, 1000);
+      }, 1200);
 
       return () => clearTimeout(timer);
     }
@@ -30,7 +38,9 @@ export function ScoreRoundSide() {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-end space-y-4 pb-10">
-      {!gameRound.blindSelected ? (
+      {openStore ? (
+        <StoreSign />
+      ) : !gameRound.blindSelected ? (
         <JumpingText
           text="Escolha seu próximo Blind"
           className="py-20 text-center text-5xl xl:py-16"
@@ -58,7 +68,7 @@ export function ScoreRoundSide() {
                 transition={{ duration: 0.2 }}
                 className="text-center text-7xl leading-3 xl:text-6xl"
               >
-                + {handScore}
+                + {handScore} {blindSelected === "boss" && " / 2"}
               </motion.div>
             ) : null}
           </AnimatePresence>

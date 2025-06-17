@@ -13,6 +13,7 @@ interface DefaultBlindProps {
   score: number;
   rewardAmout: number;
   tag?: string;
+  finished?: boolean;
   skipped?: boolean;
   onSkip?: (blind: "small" | "big") => void;
   onChoose: () => void;
@@ -24,6 +25,7 @@ export function DefaultBlind({
   score,
   rewardAmout,
   bossName = "Chefe",
+  finished = false,
   skipped = false,
   tag,
   onSkip,
@@ -60,6 +62,12 @@ export function DefaultBlind({
             <JumpingText
               className="mt-44 -rotate-[30deg] text-7xl uppercase xl:text-6xl"
               text="Ignorado(a)"
+            />
+          )}
+          {finished && (
+            <JumpingText
+              className="mt-44 -rotate-[30deg] text-6xl uppercase xl:text-5xl"
+              text="Derrotado(a)"
             />
           )}
         </div>

@@ -59,4 +59,5 @@ export interface DeckProps {
 
 export interface UserDeckProps {
   deck: DeckProps[];
+  jokers: string[];
 }

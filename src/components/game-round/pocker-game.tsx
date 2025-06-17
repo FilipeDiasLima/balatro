@@ -14,12 +14,14 @@ export function PokerGame() {
   const {
     roundHand,
     gameRound,
+    userDeck,
     cardsSelected,
     getCardFromDeck,
     handleDiscardCards,
     handleCardClick,
     setChipsAndMult,
     setNewScore,
+    toggleJokerAnimation,
   } = useApp();
 
   const [exitType, setExitType] = useState<"discard" | "play">("play");
@@ -85,34 +87,141 @@ export function PokerGame() {
         .map((item, idx) => (isCardAccepted(item.card) ? idx : -1))
         .filter((idx) => idx !== -1);
 
-      let current = 0;
       if (indexesToAnimate.length === 0) return;
 
-      // Delay antes do primeiro item
-      const firstDelay = setTimeout(() => {
-        animateAcceptedCard(indexesToAnimate[current]);
+      let current = 0;
 
-        const interval = setInterval(() => {
-          current++;
-          if (current < indexesToAnimate.length) {
-            animateAcceptedCard(indexesToAnimate[current]);
-          } else {
-            clearInterval(interval);
+      function animateNext() {
+        if (current >= indexesToAnimate.length) {
+          setTimeout(() => {
+            if (userDeck.jokers.includes("joker_mult")) {
+              toggleJokerAnimation("joker_mult");
+              setTimeout(() => {
+                setChipsAndMult("mult", 4);
+                toggleJokerAnimation("joker_mult");
+                setTimeout(() => {
+                  setCardsCounting([]);
+                  setCountingScore(false);
+                  setNewScore();
+                }, 1000);
+              }, 1000);
+            } else {
+              setTimeout(() => {
+                setCardsCounting([]);
+                setCountingScore(false);
+                setNewScore();
+              }, 1000);
+            }
+          }, 500);
+          return;
+        }
+
+        animateAcceptedCard(indexesToAnimate[current]);
+        const card = cardsCounting[indexesToAnimate[current]].card;
+        const cardValue = getCardValue(card.value);
+
+        if (userDeck.jokers.includes("joker_par") && cardValue % 2 === 0) {
+          setTimeout(() => {
+            toggleJokerAnimation("joker_par");
             setTimeout(() => {
-              setCardsCounting([]);
-              clearInterval(interval);
-              setCountingScore(false);
-              setNewScore();
-            }, 500);
-          }
-        }, 1000);
-      }, 1000);
+              setChipsAndMult("mult", 4);
+              toggleJokerAnimation("joker_par");
+              current++;
+              setTimeout(animateNext, 500);
+            }, 1000);
+          }, 1000);
+        } else if (
+          userDeck.jokers.includes("joker_impar") &&
+          cardValue % 2 !== 0
+        ) {
+          setTimeout(() => {
+            toggleJokerAnimation("joker_impar");
+            setTimeout(() => {
+              setChipsAndMult("chips", 31);
+              toggleJokerAnimation("joker_impar");
+              current++;
+              setTimeout(animateNext, 500);
+            }, 1000);
+          }, 1000);
+        } else {
+          current++;
+          setTimeout(animateNext, 1000);
+        }
+      }
+
+      setTimeout(animateNext, 1000);
 
       return () => {
-        clearTimeout(firstDelay);
+        setCardsCounting([]);
+        setCountingScore(false);
       };
     }
   }, [coutingScore, cardsCounting.length]);
+
+  // useEffect(() => {
+  //   setExitType("discard");
+
+  //   if (coutingScore && cardsCounting.length > 0) {
+  //     const { acceptedCards } = getPockerHandByCards(
+  //       cardsCounting.map((c) => c.card),
+  //     );
+  //     if (!acceptedCards) return;
+
+  //     const isCardAccepted = (card: CardProps) =>
+  //       acceptedCards.some(
+  //         (ac) => ac.naipe === card.naipe && ac.value === card.value,
+  //       );
+
+  //     const indexesToAnimate = cardsCounting
+  //       .map((item, idx) => (isCardAccepted(item.card) ? idx : -1))
+  //       .filter((idx) => idx !== -1);
+
+  //     let current = 0;
+  //     if (indexesToAnimate.length === 0) return;
+
+  //     // Delay antes do primeiro item
+  //     const firstDelay = setTimeout(() => {
+  //       animateAcceptedCard(indexesToAnimate[current]);
+
+  //       const interval = setInterval(() => {
+  //         current++;
+  //         if (current < indexesToAnimate.length) {
+  //           animateAcceptedCard(indexesToAnimate[current]);
+  //           const card = cardsCounting[indexesToAnimate[current]].card;
+  //           const cardValue = getCardValue(card.value);
+  //           if (cardValue % 2 === 0) {
+  //             toggleJokerAnimation("joker_par");
+  //             setTimeout(() => {
+  //               setChipsAndMult("mult", 4);
+  //               toggleJokerAnimation("joker_par");
+  //             }, 1000);
+  //           }
+  //         } else {
+  //           clearInterval(interval);
+  //           setTimeout(() => {
+  //             if (userDeck.jokers.includes("joker_mult")) {
+  //               toggleJokerAnimation("joker_mult");
+  //               setTimeout(() => {
+  //                 setChipsAndMult("mult", 4);
+  //                 toggleJokerAnimation("joker_mult");
+  //                 setTimeout(() => {
+  //                   clearInterval(interval);
+  //                   setCardsCounting([]);
+  //                   setCountingScore(false);
+  //                   setNewScore();
+  //                 }, 1000);
+  //               }, 1000);
+  //             }
+  //           }, 500);
+  //         }
+  //       }, 1000);
+  //     }, 1000);
+
+  //     return () => {
+  //       clearTimeout(firstDelay);
+  //     };
+  //   }
+  // }, [coutingScore, cardsCounting.length]);
 
   useEffect(() => {
     if (roundHand.length < 8 && !coutingScore) {
