@@ -58,6 +58,7 @@ export function GameArea() {
                     <JokerContainer
                       value={joker}
                       width={80}
+                      showSellButton
                       showScore={
                         jokerAnimation.find((jokerP) => jokerP.value === joker)
                           ?.turn

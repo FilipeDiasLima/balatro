@@ -1,7 +1,11 @@
+"use client";
+
+import { Button } from "@/components/buttons/button";
 import { CardDragged } from "@/components/card-dragged";
 import { CardUI, CardUIContent } from "@/components/cards/card-ui";
 import { JokerTooltip } from "@/components/joker-tooltip";
 import JumpingText from "@/components/texts/jumping-text";
+import { useApp } from "@/hooks/app";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -19,6 +23,7 @@ interface JokerContainerProps {
   isSelected?: boolean;
   showScore?: boolean;
   disabled?: boolean;
+  showSellButton?: boolean;
   onClick?: () => void;
 }
 
@@ -34,8 +39,10 @@ export function JokerContainer({
   isSelected = false,
   disabled = false,
   showPrice = false,
+  showSellButton = false,
   onClick,
 }: JokerContainerProps) {
+  const { sellJoker } = useApp();
   const [open, setOpen] = useState(false);
 
   const handleMouseEnter = () => {
@@ -83,6 +90,19 @@ export function JokerContainer({
           />
         </div>
       </CardDragged>
+
+      {showSellButton && open && (
+        <div className="absolute -top-24 flex h-full w-full items-center justify-center">
+          <CardUI className="p-1 px-2 pb-4">
+            <Button
+              className="w-full px-2 text-2xl xl:text-xl"
+              onClick={() => sellJoker(value)}
+            >
+              Vender
+            </Button>
+          </CardUI>
+        </div>
+      )}
 
       <AnimatePresence initial={false}>
         {showScore && (

@@ -89,6 +89,11 @@ export function reducerUserDeck(
   switch (action.type) {
     case "RESET":
       return initialUserDeck;
+    case "NEXT_ROUND":
+      return {
+        ...state,
+        deck: initialUserDeck.deck,
+      };
     case "GET_CARD": {
       const { naipe, cardId } = action.payload;
       return {

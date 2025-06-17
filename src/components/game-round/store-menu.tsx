@@ -28,7 +28,7 @@ export function StoreMenu({ closeStore }: StoreMenuProps) {
           bounce: 0.25,
         },
       }}
-      className="bg-background grid h-full w-fit grid-cols-1 gap-10 justify-self-center rounded-2xl border-2 border-b-0 border-red-600 p-4 xl:gap-4"
+      className="bg-background grid h-full w-fit grid-cols-1 gap-10 justify-self-center rounded-t-2xl border-2 border-b-0 border-red-600 p-4 xl:gap-4"
     >
       <div className="bg-deepgreen-darkest flex flex-col space-y-2 rounded-xl p-4">
         <div className="relative flex flex-row space-x-2">

@@ -168,7 +168,7 @@ export function AppProvider({ children }: AppProviderProps) {
     const selectedBlind = blinds.find(
       (blind: BlindProps) => blind.type === gameRound.blindSelected,
     );
-    dispatchUserDeck({ type: "RESET" });
+    dispatchUserDeck({ type: "NEXT_ROUND" });
     setRoundHand([]);
     if (selectedBlind.type !== "boss") {
       dispatchBlinds({
@@ -337,6 +337,10 @@ export function AppProvider({ children }: AppProviderProps) {
     dispatchUserDeck({
       type: "REMOVE_JOKER",
       payload: { joker },
+    });
+    dispatchGameRound({
+      type: "ADD_MONEY",
+      payload: { money: 2 },
     });
   }
 
