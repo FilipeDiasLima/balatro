@@ -440,7 +440,7 @@ export function AppProvider({ children }: AppProviderProps) {
           resetGame();
         }}
         action={() => {
-          nextRound();
+          resetGame();
           setOpenLoseRoundModal(false);
         }}
       />
