@@ -2,7 +2,7 @@ import { BlindProps } from "@/interfaces/blind";
 
 export const initialBlinds: BlindProps[] = [
   {
-    score: 100,
+    score: 500,
     rewardAmount: 3,
     tag: "investment",
     name: "Small Blind",
@@ -11,7 +11,7 @@ export const initialBlinds: BlindProps[] = [
     finished: false,
   },
   {
-    score: 100,
+    score: 700,
     rewardAmount: 4,
     tag: "investment",
     name: "Big Blind",
@@ -20,7 +20,7 @@ export const initialBlinds: BlindProps[] = [
     finished: false,
   },
   {
-    score: 100,
+    score: 1000,
     rewardAmount: 5,
     name: "Boss Blind",
     type: "boss",
