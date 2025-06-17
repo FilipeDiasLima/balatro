@@ -4,6 +4,7 @@ import { Button } from "@/components/buttons/button";
 import { CardDragged } from "@/components/card-dragged";
 import { CardContainer } from "@/components/cards/card-container";
 import { useApp } from "@/hooks/app";
+import { useSound } from "@/hooks/use-sound";
 import { CardProps } from "@/interfaces/card";
 import { getCardValue } from "@/utils/card-values";
 import { getPockerHandByCards } from "@/utils/pocker-hands";
@@ -11,6 +12,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export function PokerGame() {
+  const playMultHitSound = useSound("/sounds/multhit1.ogg");
+  const playChipsSound = useSound("/sounds/chips1.ogg");
+
   const {
     roundHand,
     gameRound,
@@ -65,6 +69,7 @@ export function PokerGame() {
     );
     const currentCard = cardsCounting[index];
     if (currentCard) {
+      playChipsSound();
       setChipsAndMult("chips", getCardValue(currentCard.card.value));
     }
   }
@@ -111,6 +116,7 @@ export function PokerGame() {
           setTimeout(() => {
             if (userDeck.jokers.includes("joker_mult")) {
               toggleJokerAnimation("joker_mult");
+              playMultHitSound();
               setTimeout(() => {
                 setChipsAndMult("mult", 4);
                 toggleJokerAnimation("joker_mult");
@@ -156,6 +162,7 @@ export function PokerGame() {
             () =>
               new Promise((resolve) => {
                 toggleJokerAnimation("joker_par");
+                playMultHitSound();
                 setTimeout(() => {
                   setChipsAndMult("mult", 4);
                   toggleJokerAnimation("joker_par");
@@ -170,6 +177,7 @@ export function PokerGame() {
             () =>
               new Promise((resolve) => {
                 toggleJokerAnimation("joker_impar");
+                playChipsSound();
                 setTimeout(() => {
                   setChipsAndMult("chips", 31);
                   toggleJokerAnimation("joker_impar");
@@ -187,6 +195,7 @@ export function PokerGame() {
             () =>
               new Promise((resolve) => {
                 toggleJokerAnimation("joker_hearts");
+                playMultHitSound();
                 setTimeout(() => {
                   setChipsAndMult("mult", 3);
                   toggleJokerAnimation("joker_hearts");
@@ -204,6 +213,7 @@ export function PokerGame() {
             () =>
               new Promise((resolve) => {
                 toggleJokerAnimation("joker_diamonds");
+                playMultHitSound();
                 setTimeout(() => {
                   setChipsAndMult("mult", 3);
                   toggleJokerAnimation("joker_diamonds");
@@ -221,6 +231,7 @@ export function PokerGame() {
             () =>
               new Promise((resolve) => {
                 toggleJokerAnimation("joker_spades");
+                playMultHitSound();
                 setTimeout(() => {
                   setChipsAndMult("mult", 3);
                   toggleJokerAnimation("joker_spades");
@@ -235,6 +246,7 @@ export function PokerGame() {
             () =>
               new Promise((resolve) => {
                 toggleJokerAnimation("joker_clubs");
+                playMultHitSound();
                 setTimeout(() => {
                   setChipsAndMult("mult", 3);
                   toggleJokerAnimation("joker_clubs");
@@ -263,71 +275,6 @@ export function PokerGame() {
       };
     }
   }, [coutingScore, cardsCounting.length]);
-
-  // useEffect(() => {
-  //   setExitType("discard");
-
-  //   if (coutingScore && cardsCounting.length > 0) {
-  //     const { acceptedCards } = getPockerHandByCards(
-  //       cardsCounting.map((c) => c.card),
-  //     );
-  //     if (!acceptedCards) return;
-
-  //     const isCardAccepted = (card: CardProps) =>
-  //       acceptedCards.some(
-  //         (ac) => ac.naipe === card.naipe && ac.value === card.value,
-  //       );
-
-  //     const indexesToAnimate = cardsCounting
-  //       .map((item, idx) => (isCardAccepted(item.card) ? idx : -1))
-  //       .filter((idx) => idx !== -1);
-
-  //     let current = 0;
-  //     if (indexesToAnimate.length === 0) return;
-
-  //     // Delay antes do primeiro item
-  //     const firstDelay = setTimeout(() => {
-  //       animateAcceptedCard(indexesToAnimate[current]);
-
-  //       const interval = setInterval(() => {
-  //         current++;
-  //         if (current < indexesToAnimate.length) {
-  //           animateAcceptedCard(indexesToAnimate[current]);
-  //           const card = cardsCounting[indexesToAnimate[current]].card;
-  //           const cardValue = getCardValue(card.value);
-  //           if (cardValue % 2 === 0) {
-  //             toggleJokerAnimation("joker_par");
-  //             setTimeout(() => {
-  //               setChipsAndMult("mult", 4);
-  //               toggleJokerAnimation("joker_par");
-  //             }, 1000);
-  //           }
-  //         } else {
-  //           clearInterval(interval);
-  //           setTimeout(() => {
-  //             if (userDeck.jokers.includes("joker_mult")) {
-  //               toggleJokerAnimation("joker_mult");
-  //               setTimeout(() => {
-  //                 setChipsAndMult("mult", 4);
-  //                 toggleJokerAnimation("joker_mult");
-  //                 setTimeout(() => {
-  //                   clearInterval(interval);
-  //                   setCardsCounting([]);
-  //                   setCountingScore(false);
-  //                   setNewScore();
-  //                 }, 1000);
-  //               }, 1000);
-  //             }
-  //           }, 500);
-  //         }
-  //       }, 1000);
-  //     }, 1000);
-
-  //     return () => {
-  //       clearTimeout(firstDelay);
-  //     };
-  //   }
-  // }, [coutingScore, cardsCounting.length]);
 
   useEffect(() => {
     if (roundHand.length < 8 && !coutingScore) {

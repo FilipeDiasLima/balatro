@@ -21,7 +21,7 @@ const CardDragged = forwardRef<HTMLDivElement, CardDraggedProps>(
 
     const dragControls = useDragControls();
     const animationControls = useAnimationControls();
-    const playClickSound = useSound("/sounds/card-slide-1.ogg", 0.2);
+    const playClickSound = useSound("/sounds/card-slide-1.ogg", 0.6);
 
     function onReset() {
       setHasPressed(false);

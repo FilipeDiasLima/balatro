@@ -1,4 +1,5 @@
 import { LoseRoundModal } from "@/components/modals/lose-round-modal";
+import { useSound } from "@/hooks/use-sound";
 import { BlindProps } from "@/interfaces/blind";
 import { CardProps } from "@/interfaces/card";
 import { GameRoundProps } from "@/interfaces/game";
@@ -78,6 +79,10 @@ interface AppContextProps {
 export const AppContext = createContext({} as AppContextProps);
 
 export function AppProvider({ children }: AppProviderProps) {
+  const playChipsSound = useSound("/sounds/chips2.ogg");
+  const playCardSound = useSound("/sounds/card1.ogg");
+  const playCoinSound = useSound("/sounds/coin1.ogg");
+
   const [user, setUser] = useState<UserProps>({
     nickname: "P1",
   });
@@ -165,6 +170,7 @@ export function AppProvider({ children }: AppProviderProps) {
   }
 
   function nextRound() {
+    playCoinSound();
     const selectedBlind = blinds.find(
       (blind: BlindProps) => blind.type === gameRound.blindSelected,
     );
@@ -203,6 +209,7 @@ export function AppProvider({ children }: AppProviderProps) {
   }
 
   const getCardFromDeck = (roundHandParam: CardProps[]) => {
+    playCardSound();
     let localDeck = { ...userDeck, deck: [...userDeck.deck] };
 
     const newCard = randomCardFromDeck(localDeck);
@@ -273,6 +280,7 @@ export function AppProvider({ children }: AppProviderProps) {
   }
 
   const setNewScore = useCallback(() => {
+    playChipsSound();
     setPlayHand((prev) => {
       setHandScore(prev.chips * prev.mult);
       dispatchGameRound({
@@ -368,11 +376,13 @@ export function AppProvider({ children }: AppProviderProps) {
         if (gameRound.currentScore < blindFound.score) {
           setOpenLoseRoundModal(true);
         } else {
+          playCoinSound();
           setShowReward(true);
         }
       }
 
       if (gameRound.currentScore >= blindFound.score) {
+        playCoinSound();
         setShowReward(true);
       }
     }, 1000);

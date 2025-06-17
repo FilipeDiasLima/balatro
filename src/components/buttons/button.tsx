@@ -35,7 +35,7 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, children, onClick, ...props }, ref) => {
-    const playClickSound = useSound("/sounds/button.ogg", 0.2);
+    const playClickSound = useSound("/sounds/button.ogg", 0.6);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       playClickSound();
