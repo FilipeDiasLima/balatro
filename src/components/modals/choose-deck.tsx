@@ -34,7 +34,7 @@ export function ChooseDeckModal({
   return (
     <Modal
       open={open}
-      className="flex max-w-fit flex-col items-center"
+      className="flex max-w-[900px] flex-col items-center"
       ref={constraintsRef}
     >
       <div className="flex w-full flex-col items-center space-y-10 px-20">

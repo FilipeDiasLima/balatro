@@ -27,7 +27,7 @@ export function LogoAnimated() {
         width={970}
         height={600}
         alt="balatro-logo"
-        className="absolute"
+        className="absolute h-[600px] w-[970px] xl:h-[450px] xl:w-[700px]"
       />
     </div>
   );

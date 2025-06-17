@@ -32,7 +32,10 @@ export function AceSpadesAnimated({ hasPressed }: AceSpadesAnimatedProps) {
         width={180}
         height={300}
         alt="AsEspadas"
-        className={cn("rounded-md", hasPressed && "card-shadow")}
+        className={cn(
+          "h-[250px] w-[180px] rounded-md xl:h-[200px] xl:w-[140px]",
+          hasPressed && "card-shadow",
+        )}
       />
     </motion.div>
   );

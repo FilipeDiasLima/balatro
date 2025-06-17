@@ -140,7 +140,7 @@ export function CreditsModal({ open, onOpenChange }: CreditsModalProps) {
   >("production");
 
   return (
-    <Modal open={open} className="max-w-[87%]">
+    <Modal open={open} className="max-h-[90%] max-w-[85%] overflow-y-auto">
       <div className="flex flex-col items-center space-y-4">
         <div className="flex flex-row items-center justify-center space-x-2 px-8">
           <div className="relative flex justify-center">
