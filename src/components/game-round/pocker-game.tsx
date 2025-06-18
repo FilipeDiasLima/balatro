@@ -75,9 +75,11 @@ export function PokerGame() {
   }
 
   useEffect(() => {
+    console.log("Entrou no useEffect de countingScore");
     setExitType("discard");
 
     if (coutingScore && cardsCounting.length > 0) {
+      console.log("Entrou no if de countingScore e cardsCounting.length > 0");
       const { acceptedCards } = getPockerHandByCards(
         cardsCounting.map((c) => c.card),
       );
@@ -127,24 +129,22 @@ export function PokerGame() {
                 }, 1000);
               }, 1000);
             } else {
-              setTimeout(() => {
-                setCardsCounting([]);
-                setCountingScore(false);
-                setNewScore();
-              }, 1000);
+              setCardsCounting([]);
+              setCountingScore(false);
+              setNewScore();
             }
-          }, 500);
-          return;
-        }
-
-        if (current >= indexesToAnimate.length) {
-          setTimeout(() => {
-            setCardsCounting([]);
-            setCountingScore(false);
-            setNewScore();
           }, 1000);
           return;
         }
+
+        // if (current >= indexesToAnimate.length) {
+        //   setTimeout(() => {
+        //     setCardsCounting([]);
+        //     setCountingScore(false);
+        //     setNewScore();
+        //   }, 1000);
+        //   return;
+        // }
 
         animateAcceptedCard(indexesToAnimate[current]);
         const card = cardsCounting[indexesToAnimate[current]].card;

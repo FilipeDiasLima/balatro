@@ -263,6 +263,7 @@ export function AppProvider({ children }: AppProviderProps) {
   );
 
   function handleCardClick(card: { naipe: string; value: string }) {
+    console.log("Card clicked:", card);
     const cardFound = cardsSelected.some(
       (c) => c.naipe === card.naipe && c.value === card.value,
     );
@@ -282,12 +283,12 @@ export function AppProvider({ children }: AppProviderProps) {
   const setNewScore = useCallback(() => {
     playChipsSound();
     setPlayHand((prev) => {
+      console.log({ chips: prev.chips, mult: prev.mult });
       setHandScore(prev.chips * prev.mult);
       dispatchGameRound({
         type: "UPDATE_SCORE",
         payload: {
-          currentScore:
-            (prev.chips * prev.mult) / (blindSelected === "boss" ? 4 : 2),
+          currentScore: prev.chips * prev.mult,
         },
       });
       dispatchGameRound({
@@ -298,7 +299,7 @@ export function AppProvider({ children }: AppProviderProps) {
     });
 
     setCardsSelected([]);
-  }, [gameRound, playHand]);
+  }, [gameRound, playHand, handScore]);
 
   function setChipsAndMult(type: "chips" | "mult", value: number) {
     setPlayHand((prev) => ({

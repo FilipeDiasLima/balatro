@@ -67,7 +67,10 @@ export function reducerGameRound(
     case "UPDATE_SCORE":
       return {
         ...state,
-        currentScore: state.currentScore + (action.payload?.currentScore || 0),
+        currentScore:
+          state.currentScore +
+          (action.payload?.currentScore || 0) /
+            (state.blindSelected === "boss" ? 4 : 2),
       };
     case "ADD_MONEY":
       return {
